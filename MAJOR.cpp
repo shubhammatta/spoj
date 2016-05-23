@@ -25,7 +25,7 @@
 using namespace std;
 #define ll long long
 
-ll powerwithmodulus(ll base, ll exponent,ll modulus)
+ll powerwithmodulus(ll base, ll exponent)
 {
     ll result = 1;
     base%=modulus;
@@ -81,42 +81,33 @@ int main(){
 	//freopen("F:/output.txt", "w", stdout);
 	ios_base::sync_with_stdio(0);
 	//cin.tie(0);
-	long long int n,m;
-	cin >> n >> m;
-	vector<long long int > arr(n);
-	cin >> arr[0];
-	ll maxim = 0;
-	ll last = 0;
-	for(int i=1;i<n;i++){
-		cin >> arr[i];
-		arr[i]+=arr[i-1];
-		if(arr[i]<=m)
-			{maxim = max(maxim, arr[i]);last=i;}
-	}
-	//ll maxim=0;
-	for(ll i=n;i>last;i--){
-		//maxim = max(maxim,rec(arr,0,i,m,i));
-		if(arr[i]-arr[0]<=m){
-			maxim = max(maxim,arr[i]-arr[0]);
+
+	int t;cin >>t;
+	int arr[2200]={0};
+	while(t--){
+		int N;
+		cin >> N;
+		int k;
+		memset(arr,0,2200*sizeof(int));
+		for(int i=0;i<N;i++){
+			cin >> k;
+			arr[k+1000]++; 
 		}
-		else{
-			ll start=0;
-			ll end =i;
-			ll tmp = i;
-			while(start!=end){
-				ll mid = (start+end)/2;
-				if(arr[tmp]-arr[mid]>m){
-					start=mid+1;
-				}
-				else
-				{
-					end = mid;
-				}
+		bool t=false;
+		int val=-1;	
+		for(int i=0;i<2100;i++){
+			if(arr[i]>N/2){
+				//cout << arr[i] << " here " << i <<  endl;
+ 				t= true;
+				val = i;break;
 			}
-			maxim = max(maxim,arr[tmp]-arr[start]);
 		}
+		if(t){
+			cout << "YES " << val-1000 << endl;
+		}
+		else cout << "NO" << endl;
 	}
-	cout << maxim << endl;
+
 	return 0;
 	
 }
